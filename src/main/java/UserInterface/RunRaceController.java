@@ -2,6 +2,7 @@ package UserInterface;
 
 import CustomClasses.RaceEvent;
 import CustomClasses.TableViewElement;
+import CustomClasses.Team;
 import MainPackage.Main;
 import Utils.RaceResultParserUtilities;
 import javafx.application.Platform;
@@ -16,6 +17,8 @@ import Utils.FolderListenerUtilities;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -121,6 +124,17 @@ public class RunRaceController implements Initializable {
             Collections.reverse(stringList);
             String newFileName = RaceResultParserUtilities.createFormattedFile(racePath,stringList.get(0).substring(stringList.get(0).lastIndexOf("\\")));
         }
+        List<String> dataToBeWritten = new LinkedList<>();
+        Collections.sort(Main.currentTeamList);
+        Main.currentTeamList.remove(0);
+        Team winnerTeam = Main.currentTeamList.get(0);
+        for (var team : Main.currentTeamList){
+            dataToBeWritten.add(team.toString().concat(" ").concat(String.format("%.2f",team.getTotalTime()-winnerTeam.getTotalTime()))
+            .concat(" ").concat(String.valueOf(team.getTotalTime())));
+        }
+        System.out.println(dataToBeWritten);
+        Path finalResults = Path.of(Main.finalResPath.toString().concat("\\FINAL.txt"));
+        Files.write(finalResults,dataToBeWritten);
 
 
     }

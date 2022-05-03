@@ -83,7 +83,7 @@ public class RaceEvent {
         StringBuilder sb = new StringBuilder();
         for (var team : teamList){
             sb.append(team.getName()).append("   ");
-            sb.append(team.displayTime()). append("\n");
+            sb.append(team.displayTime(team.totalTime)). append("\n");
         }
         return sb.toString();
     }

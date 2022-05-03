@@ -26,9 +26,9 @@ public class RaceResultParserUtilities {
     }
 
     private static double getSecondsFromString(String line){
-        double minutes = Double.parseDouble(line.split(":")[0])*60
+        double seconds = Double.parseDouble(line.split(":")[0])*60.0
                 + Double.parseDouble(line.split(":")[1]);
-        return minutes;
+        return seconds;
     }
 
     public static void updateRaces(Collection<Team> teamCollection, String line){
@@ -49,6 +49,10 @@ public class RaceResultParserUtilities {
                 rowerTeam = team;
                 break;
             }
+        }
+
+        if(nameTeam.equals("FBF2")){
+            System.out.println("tople noci");
         }
 
         if (teamExists) {

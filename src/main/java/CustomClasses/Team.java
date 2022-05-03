@@ -69,20 +69,22 @@ public class Team implements Comparable<Team>{
     public int compareTo(Team o) {
         return (int) Math.round(this.totalTime - o.totalTime);
     }
-    public String displayTime(){
-        int minutes = (int) (this.totalTime/60.);
-        double seconds = this.totalTime - minutes * 60.;
+    public String displayTime(double time){
+        int minutes = (int) (time/60.);
+        double seconds = time - minutes * 60.;
         StringBuilder sb = new StringBuilder();
         sb.append(minutes);
         sb.append(":"); //14:21.1 for example
-        sb.append(seconds);
+        sb.append(String.format("%.2f",seconds));
         return sb.toString();
     }
 
+
+
     @Override
     public String toString() {
-        return name + " " +
-
-                displayTime();
+        return name + " "
+                + displayTime(totalTime) + " "
+                + displayTime(totalTime / rowers.size());
     }
 }
