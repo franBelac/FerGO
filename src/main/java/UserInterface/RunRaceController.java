@@ -13,6 +13,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import Utils.FolderListenerUtilities;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -56,26 +58,10 @@ public class RunRaceController implements Initializable {
         column1.prefWidthProperty().bind(wholeView.widthProperty().divide(2));
         column2.prefWidthProperty().bind(wholeView.widthProperty().divide(2));
 
-
-
-
-//        t = new Thread(){
-//            @Override
-//            public void run() {
-//                running.set(true);
-//                while(running.get()) {
-//                    String pathName = FolderListenerUtilities.newFileCreated(Main.listenerPath, running);
-//
-//
-//                    Platform.runLater(()->wholeView.getItems().add(new TableViewElement(pathName.substring(pathName.lastIndexOf("\\") + 1))));
-//
-//                }
-//
-//            }
-//        };
     }
     @FXML
     private void clickStart () {
+        Main.isInsideRace = true;
 
         Main.racePaths = new LinkedList<>();
         if(Main.currentTeamList != null){for(var x : Main.currentTeamList){System.out.println(x);}}
@@ -116,22 +102,26 @@ public class RunRaceController implements Initializable {
 
 
     @FXML
-    private void clickFinish () throws InterruptedException {
+    private void clickFinish () throws InterruptedException, IOException {
+        RacePopupController.showPopup();
+        if (Main.isInsideRace) return;
+
         running.set(false);
-        //
         finishBtn.setDisable(true);
         startBtn.setDisable(false);
 
-        //Thread.sleep(500);
+        wholeView.getItems().removeAll(wholeView.getItems());
 
+        placeholderLabel.setText("Click \"Start\" to start ");
+        wholeView.setPlaceholder(placeholderLabel);
 
         for (var racePath : Main.racePaths) {
             if(racePath == null){break;}
             List<String> stringList = Arrays.asList(racePath.split("//"));
             Collections.reverse(stringList);
             String newFileName = RaceResultParserUtilities.createFormattedFile(racePath,stringList.get(0).substring(stringList.get(0).lastIndexOf("\\")));
-            //System.out.println(racePath);
         }
+
 
     }
 

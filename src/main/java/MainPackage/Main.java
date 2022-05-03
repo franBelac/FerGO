@@ -48,6 +48,7 @@ private static AnchorPane racePane;
 
 // controls if a popup window should be invoked
 public static boolean isInputLocal = false;
+public static boolean isInsideRace = false;
 public static Object lock = new Object();
 
 public static LinkedList<String> racePaths;
@@ -155,9 +156,16 @@ public static LinkedList<String> racePaths;
         if(isInputLocal) InputPopupController.showPopup();
         if (isInputLocal) return;
 
-
         mainLayout.setCenter(racePane);
     }
+
+    public static void showEndRace () throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("../EndRace.fxml"));
+        AnchorPane raceEndPane = loader.load();
+        mainLayout.setCenter(raceEndPane);
+    }
+
 
 
     public static void main(String[] args) {
