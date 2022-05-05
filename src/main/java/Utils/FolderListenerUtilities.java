@@ -28,7 +28,7 @@ public class FolderListenerUtilities {
                 Thread.sleep(1000);
                 Set<String> newFiles = new HashSet<>();
                 for (var x : path.toFile().listFiles()){
-                    if (!oldFiles.contains(x.getName()) && x.getName().endsWith(".txt")){
+                    if (!oldFiles.contains(x.getName()) && x.getName().endsWith("ults.txt")){
                         Platform.runLater(()->{
                             Main.racePaths.add(x.getAbsolutePath());
                             TableViewElement el = new TableViewElement(x.getName());
