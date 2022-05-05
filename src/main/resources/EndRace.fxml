@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="457.0" prefWidth="606.0" style="-fx-background-color: rgb(65,65,65);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserInterface.EndRaceController">
    <children>
-      <Label layoutX="33.0" layoutY="67.0" text="Race Finished Successfully" textFill="WHITE">
+      <Label layoutX="33.0" layoutY="14.0" text="Race Finished Successfully" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="26.0" layoutY="258.0" prefHeight="35.0" prefWidth="554.0" text="Feel free to start a new race by clicking on Run Race" textFill="WHITE">
+      <Label layoutX="26.0" layoutY="68.0" prefHeight="35.0" prefWidth="554.0" text="Feel free to start a new race by clicking on Run Race" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+      <TableView fx:id="endView" layoutX="25.0" layoutY="116.0" prefHeight="326.0" prefWidth="554.0">
+        <columns>
+          <TableColumn fx:id="colTeamName" prefWidth="75.0" text="Team name" />
+          <TableColumn fx:id="colTime" prefWidth="75.0" text="Time" />
+            <TableColumn fx:id="colAverage" prefWidth="75.0" text="Average" />
+            <TableColumn fx:id="colGap" prefWidth="75.0" text="Gap" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

@@ -82,6 +82,13 @@
     -fx-alignment: center;
 }
 
+#colTeamName #colAverage #colGap #colTime {
+    -fx-alignment: center;
+
+}
+
+
+
 
 /*micanje donjeg scrollbara - eksperimentalno*/
 .table-view *.scroll-bar:horizontal *.increment-button,
