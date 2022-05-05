@@ -35,7 +35,6 @@ public class RacePopupController {
 
     public void clickOK () throws IOException {
         Main.isInsideRace = false;
-        Main.showEndRace();
         window.close();
     }
 

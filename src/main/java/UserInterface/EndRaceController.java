@@ -1,6 +1,9 @@
 package UserInterface;
 
 import CustomClasses.TableViewElement;
+import CustomClasses.TableViewFinishEl;
+import CustomClasses.Team;
+import MainPackage.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -13,19 +16,19 @@ import java.util.ResourceBundle;
 public class EndRaceController implements Initializable {
 
     @FXML
-    TableView<String> endView;
+    TableView<TableViewFinishEl> endView;
 
     @FXML
-    TableColumn<String, String> colTeamName;
+    TableColumn<TableViewFinishEl, String> colTeamName;
 
     @FXML
-    TableColumn<String, String> colTime;
+    TableColumn<TableViewFinishEl, String> colTime;
 
     @FXML
-    TableColumn<String, String> colAverage;
+    TableColumn<TableViewFinishEl, String> colAverage;
 
     @FXML
-    TableColumn<String, String> colGap;
+    TableColumn<TableViewFinishEl, String> colGap;
 
 
 
@@ -61,8 +64,17 @@ public class EndRaceController implements Initializable {
 
         endView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+        //while(!RunRaceController.done){}
 
-
-
+        Team winnerTeam = Main.currentTeamList.get(0);
+        for (var team : Main.currentTeamList){
+            TableViewFinishEl el = new TableViewFinishEl(
+                    team.getName(),
+                    team.displayTime(team.getTotalTime()),
+                    team.displayTime(team.getTotalTime()/team.getRowers().size()),
+                    String.format("%.2f",team.getTotalTime()-winnerTeam.getTotalTime())
+            );
+            endView.getItems().add(el);
+        }
     }
 }

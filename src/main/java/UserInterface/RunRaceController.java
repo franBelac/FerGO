@@ -2,6 +2,7 @@ package UserInterface;
 
 import CustomClasses.RaceEvent;
 import CustomClasses.TableViewElement;
+import CustomClasses.TableViewFinishEl;
 import CustomClasses.Team;
 import MainPackage.Main;
 import Utils.RaceResultParserUtilities;
@@ -26,6 +27,8 @@ public class RunRaceController implements Initializable {
 
     private Thread t;
     AtomicBoolean running = new AtomicBoolean(false);
+
+    static boolean done = false;
 
     @FXML
     Button startBtn;
@@ -135,6 +138,9 @@ public class RunRaceController implements Initializable {
         System.out.println(dataToBeWritten);
         Path finalResults = Path.of(Main.finalResPath.toString().concat("\\FINAL.txt"));
         Files.write(finalResults,dataToBeWritten);
+
+
+        Main.showEndRace();
 
 
     }
