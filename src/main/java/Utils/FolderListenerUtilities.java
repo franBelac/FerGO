@@ -1,13 +1,51 @@
 package Utils;
 
+import CustomClasses.TableViewElement;
+import CustomClasses.TableViewFinishEl;
+import MainPackage.Main;
+import UserInterface.RunRaceController;
+import javafx.application.Platform;
+import javafx.scene.control.TableView;
+
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 
 public class FolderListenerUtilities {
+
+    public static void newFileCreated2 (Path path, AtomicBoolean running, TableView<TableViewElement> table){
+        Set<String> oldFiles = new HashSet<>();
+        for (var x : path.toFile().listFiles()){
+            oldFiles.add(x.getName());
+        }
+        while (running.get()){
+            try {
+                Thread.sleep(1000);
+                Set<String> newFiles = new HashSet<>();
+                for (var x : path.toFile().listFiles()){
+                    if (!oldFiles.contains(x.getName()) && x.getName().endsWith(".txt")){
+                        Platform.runLater(()->{
+                            Main.racePaths.add(x.getAbsolutePath());
+                            TableViewElement el = new TableViewElement(x.getName());
+                            table.getItems().add(el);
+                            el.getFinish().setOnAction(e -> {
+                                table.getItems().remove(el);
+                                Main.racePaths.remove(x.getName());
+                            });
+                                });
+                        oldFiles.add(x.getName());
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public static String newFileCreated(Path path, AtomicBoolean running) { //static method that returns absolute string path to newly created object
         try { //check if the given path is folder !!!should never fail, but this is an extra safety measure!!!

@@ -78,19 +78,21 @@ public class RunRaceController implements Initializable {
             public void run() {
                 running.set(true);
                 while(running.get()) {
-                    String pathName = FolderListenerUtilities.newFileCreated(Main.listenerPath, running);
+                    //String pathName = FolderListenerUtilities.newFileCreated(Main.listenerPath, running);
 
-                    Platform.runLater(()->Main.racePaths.add(pathName));
-                    if(pathName != null) {
-                        Platform.runLater(() -> {
-                            TableViewElement el = new TableViewElement(pathName.substring(pathName.lastIndexOf("\\") + 1));
-                            el.getFinish().setOnAction(e -> {
-                                wholeView.getItems().remove(el);
-                                Main.racePaths.remove(pathName);
-                            });
-                            wholeView.getItems().add(el);
-                        })
-                    ;}
+                    FolderListenerUtilities.newFileCreated2(Main.listenerPath,running,wholeView);
+
+//                    Platform.runLater(()->Main.racePaths.add(pathName));
+//                    if(pathName != null) {
+//                        Platform.runLater(() -> {
+//                            TableViewElement el = new TableViewElement(pathName.substring(pathName.lastIndexOf("\\") + 1));
+//                            el.getFinish().setOnAction(e -> {
+//                                wholeView.getItems().remove(el);
+//                                Main.racePaths.remove(pathName);
+//                            });
+//                            wholeView.getItems().add(el);
+//                        })
+//                    ;}
 
                 }
 
@@ -132,7 +134,7 @@ public class RunRaceController implements Initializable {
         //Main.currentTeamList.remove(0);
         Team winnerTeam = Main.currentTeamList.get(0);
         for (var team : Main.currentTeamList){
-            dataToBeWritten.add(team.toString().concat(" ").concat(String.format("%.2f",team.getTotalTime()-winnerTeam.getTotalTime()))
+            dataToBeWritten.add(team.toString().concat(" ").concat(String.format("%2.2f",team.getTotalTime()-winnerTeam.getTotalTime()))
             .concat(""));
         }
         System.out.println(dataToBeWritten);
