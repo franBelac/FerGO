@@ -137,6 +137,7 @@ public class FileUtilities {
 
     public static void generateRacFilesFromRaceEvent(RaceEvent event, String folderName) throws IOException {
         int m = (int) Math.ceil((double)event.getNumberOfTeams()/event.getNumberOfErgs());
+        List<String> linesForStartingList = new LinkedList<>();
         List<Integer> raceSizes = new LinkedList<>();
         int initSize = (int) Math.floor((double) event.getNumberOfTeams()/m);
         int sum = event.getNumberOfTeams() - initSize*m ;
@@ -170,8 +171,9 @@ public class FileUtilities {
                 lines.add(String.valueOf(event.getLength()/event.getSplits()));
                 lines.add("120");
                 lines.add(String.valueOf(raceSizes.get(i))+"");
-
+                String s = "";
                 for (int k = StartingIndex; k < EndingIndex; k++) {
+                    s = s.concat(event.getTeamList().get(k).getRowers().get(j).getName().concat(" "));
                     lines.add(event.getTeamList().get(k).getRowers().get(j).getName().concat(""));
                     lines.add("0");
                     lines.add("");
@@ -179,10 +181,14 @@ public class FileUtilities {
                     lines.add("");
                 }
                 lines.add("0\n");
+                linesForStartingList.add(s);
+
                 Files.write(racFile,lines);
             }
             int pom = StartingIndex;
         }
+
+        Files.write(Path.of(folderName.concat("\\").concat("Start list.txt")),linesForStartingList);
     }
 
 }

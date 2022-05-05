@@ -24,10 +24,10 @@ public class FolderListenerUtilities {
         try (WatchService watchService = fileSystem.newWatchService()) {
             path.register(watchService, ENTRY_CREATE); //watch service that watches for file creation //https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/WatchService.html
             WatchKey key;
-            while (true && running.get()) {//loop
-                key = watchService.poll();//poll does not block the tread
+            while (true && running.get()) {
+                key = watchService.poll();
                 WatchEvent.Kind<?> kind = null;
-                if(key != null) { //if key exists
+                if(key != null) {
                     for (WatchEvent<?> wEvent : key.pollEvents()) {
                         kind = wEvent.kind();
                         if (kind == ENTRY_CREATE) { // if creation happened
