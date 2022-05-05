@@ -188,7 +188,7 @@ public class FileUtilities {
             int pom = StartingIndex;
         }
 
-        Files.write(Path.of(folderName.concat("\\").concat("Start list.txt")),linesForStartingList);
+        Files.write(Path.of(folderName.concat("\\").concat(event.getName()).concat(" Start list.txt")),linesForStartingList);
     }
 
 }
