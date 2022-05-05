@@ -26,6 +26,8 @@ public class FolderListenerUtilities {
             WatchKey key;
             while (true && running.get()) {
                 key = watchService.poll();
+                Thread.sleep(100);
+
                 WatchEvent.Kind<?> kind = null;
                 if(key != null) {
                     for (WatchEvent<?> wEvent : key.pollEvents()) {
@@ -39,6 +41,8 @@ public class FolderListenerUtilities {
             }
         } catch (IOException ioException) {
             ioException.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         return null;
     }

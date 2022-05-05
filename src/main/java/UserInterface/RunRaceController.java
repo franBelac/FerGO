@@ -129,11 +129,11 @@ public class RunRaceController implements Initializable {
         }
         List<String> dataToBeWritten = new LinkedList<>();
         Collections.sort(Main.currentTeamList);
-        Main.currentTeamList.remove(0);
+        //Main.currentTeamList.remove(0);
         Team winnerTeam = Main.currentTeamList.get(0);
         for (var team : Main.currentTeamList){
             dataToBeWritten.add(team.toString().concat(" ").concat(String.format("%.2f",team.getTotalTime()-winnerTeam.getTotalTime()))
-            .concat(" ").concat(String.valueOf(team.getTotalTime())));
+            .concat(""));
         }
         System.out.println(dataToBeWritten);
         Path finalResults = Path.of(Main.finalResPath.toString().concat("\\FINAL.txt"));
