@@ -22,6 +22,11 @@ public class Team implements Comparable<Team>{
         this.rowers = new LinkedList<>();
 
         this.rowers.addAll(Arrays.asList(rowers));
+
+        for (var rower: rowers){
+            totalTime += rower.getTime();
+        }
+
         rowerSet = new HashSet<Rower>(this.rowers);
 
     }
