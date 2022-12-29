@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Projekt1" target="15" />
+      <module name="Projekt1" target="19" />
     </bytecodeTargetLevel>
   </component>
 </project>
