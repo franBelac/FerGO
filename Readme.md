@@ -5,6 +5,7 @@ FerGo is a Java application used for running sports events
 ## Packaging and running
 
 You can run the app straight from the Main_1.java file and you should be able to package it into a Jar on any operating system without extra configuration.
+Tried and tested OS's: Windows, MacOS Intel, MacOS Apple Silicon
 
 ```bash
 java -jar Projekt1.jar
